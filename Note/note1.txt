@@ -1,0 +1,34 @@
+Chủ yếu làm chức năng thi trắc nghiệm trực tuyến
+Nếu tiến độ nhanh thì làm đăng ký đăng nhập đăng xuất
+
+guild... (hướng dẫn)
+
+
+api reference Shared
+mobile reference Shared và Component 
+component reference Component 
+web reference Shared và Component
+
+cài nuget
+ef core sql
+ef core tools
+để code first
+
+làm đăng ký đăng nhập đăng xuất
+tạo thực thể User
+
+hash: md5 (kém bảo mật) sha (bảo mật hơn)
+
+thực thể lưu: toán, lý, hóa
+mạng máy tính
+lập trình web
+lập trình mobile
+tạo Category(Id int, Name string, Quiz)
+
+mã định danh
+"a, b, c, d"
+"1, 2, 3"
+
+
+
+
