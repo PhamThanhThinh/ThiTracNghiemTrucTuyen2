@@ -86,3 +86,11 @@ add-migration MoTaCuaBan -o Data/Migration
 update-database
 
 Đã tạo xong database theo kiểu code first (code C# trước)
+
+build
+chạy project lên trình duyệt
+
+check null
+
+nên dùng thư viện Identity thì sẽ làm chức năng đăng ký đăng nhập đăng xuất nhanh hơn
+

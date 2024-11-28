@@ -1,4 +1,4 @@
-using ThiTracNghiemTrucTuyen.Api.Data;
+﻿using ThiTracNghiemTrucTuyen.Api.Data;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ThiTracNghiemTrucTuyen.Api.Data.Entities;
@@ -19,7 +19,12 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
 }
 );
 
+
 var app = builder.Build();
+
+#if DEBUG
+ApplyDbMigration(app.Services);
+#endif
 
 // Configure the HTTP request pipeline.
 if (app.Environment.IsDevelopment())
@@ -50,9 +55,80 @@ app.MapGet("/weatherforecast", () =>
 .WithName("GetWeatherForecast")
 .WithOpenApi();
 
+
+
+
 app.Run();
+
+//static void ApplyDbMigration(IServiceProvider serviceProvider)
+//{
+//  var scope = serviceProvider.CreateScope();
+//  var context = serviceProvider.GetRequiredService<ApplicationDbContext>();
+//  if (context.Database.GetPendingMigrations().Any())
+//  {
+//    context.Database.Migrate();
+//  }
+//}
+static void ApplyDbMigration(IServiceProvider serviceProvider)
+{
+  try
+  {
+    using (var scope = serviceProvider.CreateScope())
+    {
+      var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+      // Kiểm tra và áp dụng các migration còn thiếu
+      if (context.Database.GetPendingMigrations().Any())
+      {
+        context.Database.Migrate();
+        Console.WriteLine("Database migration applied successfully.");
+      }
+      else
+      {
+        Console.WriteLine("No pending migrations found.");
+      }
+    }
+  }
+  catch (Exception ex)
+  {
+    Console.WriteLine($"An error occurred while applying migrations: {ex.Message}");
+    // Log lỗi nếu cần
+  }
+}
 
 internal record WeatherForecast(DateOnly Date, int TemperatureC, string? Summary)
 {
   public int TemperatureF => 32 + (int)(TemperatureC / 0.5556);
 }
+
+
+//#if DEBUG
+//ApplyDbMigration(app.Services);
+//#endif
+
+//static void ApplyDbMigration(IServiceProvider serviceProvider)
+//{
+//  try
+//  {
+//    using (var scope = serviceProvider.CreateScope())
+//    {
+//      var context = scope.ServiceProvider.GetRequiredService<ApplicationDbContext>();
+
+//      // Kiểm tra và áp dụng các migration còn thiếu
+//      if (context.Database.GetPendingMigrations().Any())
+//      {
+//        context.Database.Migrate();
+//        Console.WriteLine("Database migration applied successfully.");
+//      }
+//      else
+//      {
+//        Console.WriteLine("No pending migrations found.");
+//      }
+//    }
+//  }
+//  catch (Exception ex)
+//  {
+//    Console.WriteLine($"An error occurred while applying migrations: {ex.Message}");
+//    // Log lỗi nếu cần
+//  }
+//}
