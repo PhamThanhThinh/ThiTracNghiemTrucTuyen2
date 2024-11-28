@@ -1,9 +1,23 @@
+using ThiTracNghiemTrucTuyen.Api.Data;
+using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
+using ThiTracNghiemTrucTuyen.Api.Data.Entities;
+
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 // Learn more about configuring Swagger/OpenAPI at https://aka.ms/aspnetcore/swashbuckle
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
+
+builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
+
+builder.Services.AddDbContext<ApplicationDbContext>(options =>
+{
+  var chuoiKetNoi = builder.Configuration.GetConnectionString("conn");
+  options.UseSqlServer(chuoiKetNoi);
+}
+);
 
 var app = builder.Build();
 

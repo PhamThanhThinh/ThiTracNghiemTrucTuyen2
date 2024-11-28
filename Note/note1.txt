@@ -23,12 +23,66 @@ thực thể lưu: toán, lý, hóa
 mạng máy tính
 lập trình web
 lập trình mobile
-tạo Category(Id int, Name string, Quiz)
+tạo Category(Id int, Name string)
 
 mã định danh
 "a, b, c, d"
 "1, 2, 3"
 
+tạo Quiz(Id, Name, TotalQuestion, TimeMinute)
+
+typeof
 
 
+question (câu hỏi trong bài trắc nghiệm)
+quiz (nguyên bài trắc nghiệm)
 
+trường Correct chứa trả lời đúng
+
+Correct: câu trả lời này có đúng hay không
+
+trường Text trong Question chứa câu hỏi
+
+Câu hỏi bất kỳ?
+
+A
+B
+C
+D
+
+Category
+Option
+Question
+Quiz
+User
+
+StudentQuiz (Id, StudentId, QuizId)
+tạm thời ta làm 6 bảng dữ liệu
+
+add-migration
+update-database
+
+UserRole (enum: giá trị mặc định Admin và Student)
+
+123
+
+sha5
+3C9909AFEC25354D551DAE21590BB26E38D53F2173B8D3DC3EEE4C047E7AB1C1EB8B85103E3BE7BA613B31BB5C9C36214DC9F14A42FD7A2FDB84856BCA5C44C2
+
+sha1
+40BD001563085FC35165329EA1FF5C5ECBDBBEEF
+
+Server=DESKTOP-EJIF44V;Database=NhaSachOnline;Trusted_Connection=True;TrustServerCertificate=true;MultipleActiveResultSets=true
+DataSource
+
+tạo 5 project (api, mobile, web, shared, component)
+add nuget pagekage: sql, tool
+tạo thực thể
+tạo dbcontext
+tạo chuỗi kết nối trong appsetting
+khai báo program
+chạy câu lệnh
+add-migration MoTaCuaBan -o Data/Migration
+update-database
+
+Đã tạo xong database theo kiểu code first (code C# trước)
