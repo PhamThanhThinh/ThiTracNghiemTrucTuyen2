@@ -14,11 +14,13 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
   {
     private readonly ApplicationDbContext _context;
     private readonly IPasswordHasher<User> _passwordHasher;
+    private readonly IConfiguration _configuration;
 
-    public AuthService(ApplicationDbContext context, IPasswordHasher<User> passwordHasher)
+    public AuthService(ApplicationDbContext context, IPasswordHasher<User> passwordHasher, IConfiguration configuration)
     {
       _context = context;
       _passwordHasher = passwordHasher;
+      _configuration = configuration;
     }
 
     public async Task LoginAsync(LoginDto loginDto)
@@ -42,7 +44,7 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
 
     }
 
-    private static string GenerateJwtToken(User user)
+    private string GenerateJwtToken(User user)
     {
       Claim[] claims =
         [
@@ -51,7 +53,7 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
           new Claim(ClaimTypes.Role, user.Role)
         ];
 
-      var secretKey = ""; // lấy từ appsettings.json
+      var secretKey = _configuration.GetValue<string>("Jwt:Secret"); // lấy từ appsettings.json
       var symmetricKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretKey));
       var signingCred = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
       var jwtSecurityToken = new JwtSecurityToken(
@@ -59,8 +61,8 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
             audience: "your-audience",                 // Định danh của đối tượng nhận token (Audience)
             claims: claims,                            // Các thông tin bổ sung (Claims)
             notBefore: DateTime.UtcNow,                // Thời điểm token bắt đầu có hiệu lực
-            //expires: DateTime.UtcNow.AddHours(1),      // Thời điểm token hết hạn
-            expires: DateTime.UtcNow.AddMinutes(5),
+            expires: DateTime.UtcNow.AddHours(1),      // Thời điểm token hết hạn
+            //expires: DateTime.UtcNow.AddMinutes(5),
             signingCredentials: signingCred
           );
 
