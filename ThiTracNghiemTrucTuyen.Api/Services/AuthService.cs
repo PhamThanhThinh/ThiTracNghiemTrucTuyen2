@@ -23,24 +23,27 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
       _configuration = configuration;
     }
 
-    public async Task LoginAsync(LoginDto loginDto)
+    public async Task<AuthensResponseDto> LoginAsync(LoginDto loginDto)
     {
       var user = await _context.Users.AsNoTracking().FirstOrDefaultAsync(u => u.Email == loginDto.Username);
 
       if (user == null)
       {
         // không có user này
-        return;
+        return new AuthensResponseDto(default, "Không có user này!");
       }
       var passwordVerification = _passwordHasher.VerifyHashedPassword(user, user.PasswordHash, loginDto.Password);
 
       if (passwordVerification == PasswordVerificationResult.Failed)
       {
         // sai mật khẩu
-        return;
+        return new AuthensResponseDto(default, "Sai mật khẩu!");
       }
 
       var jwt = GenerateJwtToken(user);
+
+      return new AuthensResponseDto(jwt);
+
     }
 
     private string GenerateJwtToken(User user)

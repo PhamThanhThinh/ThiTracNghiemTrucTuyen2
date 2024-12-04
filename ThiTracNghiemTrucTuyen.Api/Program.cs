@@ -2,6 +2,7 @@
 using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ThiTracNghiemTrucTuyen.Api.Data.Entities;
+using ThiTracNghiemTrucTuyen.Api.Services;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -12,12 +13,15 @@ builder.Services.AddSwaggerGen();
 
 builder.Services.AddTransient<IPasswordHasher<User>, PasswordHasher<User>>();
 
+
 builder.Services.AddDbContext<ApplicationDbContext>(options =>
 {
   var chuoiKetNoi = builder.Configuration.GetConnectionString("conn");
   options.UseSqlServer(chuoiKetNoi);
 }
 );
+
+builder.Services.AddTransient<AuthService>();
 
 
 var app = builder.Build();
