@@ -41,7 +41,6 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
       }
 
       var jwt = GenerateJwtToken(user);
-
     }
 
     private string GenerateJwtToken(User user)
@@ -57,11 +56,12 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
       var symmetricKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretKey));
       var signingCred = new SigningCredentials(symmetricKey, SecurityAlgorithms.HmacSha256);
       var jwtSecurityToken = new JwtSecurityToken(
-            issuer: "your-issuer",                     // Định danh của người phát hành (Issuer)
-            audience: "your-audience",                 // Định danh của đối tượng nhận token (Audience)
+            issuer: _configuration.GetValue<string>("Jwt:Issuer"),  // Định danh của người phát hành (Issuer)
+            audience: _configuration.GetValue<string>("Jwt:Audience"),   // Định danh của đối tượng nhận token (Audience)
             claims: claims,                            // Các thông tin bổ sung (Claims)
             notBefore: DateTime.UtcNow,                // Thời điểm token bắt đầu có hiệu lực
-            expires: DateTime.UtcNow.AddHours(1),      // Thời điểm token hết hạn
+            //expires: DateTime.UtcNow.AddHours(1),      // Thời điểm token hết hạn
+            expires: DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:ExpireMinutes")),
             //expires: DateTime.UtcNow.AddMinutes(5),
             signingCredentials: signingCred
           );
