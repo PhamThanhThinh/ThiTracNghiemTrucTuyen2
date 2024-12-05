@@ -15,3 +15,5 @@ làm tool tự động hóa: cần theo dõi hiệu suất
 
 những bài code thiếu nhi
 
+variable hay còn gọi là biến
+
