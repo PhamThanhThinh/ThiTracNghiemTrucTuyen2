@@ -3,6 +3,7 @@ using Microsoft.EntityFrameworkCore;
 using Microsoft.AspNetCore.Identity;
 using ThiTracNghiemTrucTuyen.Api.Data.Entities;
 using ThiTracNghiemTrucTuyen.Api.Services;
+using ThiTracNghiemTrucTuyen.Api.Endpoints;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -38,6 +39,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.MapAuthEndpoints();
 
 var summaries = new[]
 {
