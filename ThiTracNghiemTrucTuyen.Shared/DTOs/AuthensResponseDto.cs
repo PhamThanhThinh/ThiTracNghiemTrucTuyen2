@@ -2,15 +2,19 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
+using System.Text.Json.Serialization;
 using System.Threading.Tasks;
 
 namespace ThiTracNghiemTrucTuyen.Shared.DTOs
 {
+  // viết gọn
   public record AuthensResponseDto(string Token, string? ErrorMessage = null)
   {
+    [JsonIgnore]
     public bool HasError => ErrorMessage != null;
   }
 
+  // viết rõ ràng ra
   //public record AuthensResponseDto
   //{
   //  public string Token { get; init; }

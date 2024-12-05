@@ -28,7 +28,8 @@ builder.Services.AddTransient<AuthService>();
 var app = builder.Build();
 
 #if DEBUG
-ApplyDbMigration(app.Services);
+//ApplyDbMigration(app.Services);
+await DataSeeder.SeedAdminUserAsync(app.Services);
 #endif
 
 // Configure the HTTP request pipeline.
@@ -61,7 +62,6 @@ app.MapGet("/weatherforecast", () =>
 })
 .WithName("GetWeatherForecast")
 .WithOpenApi();
-
 
 
 

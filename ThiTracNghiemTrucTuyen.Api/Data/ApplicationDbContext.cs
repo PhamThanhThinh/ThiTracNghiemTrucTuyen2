@@ -26,19 +26,19 @@ namespace ThiTracNghiemTrucTuyen.Api.Data
       base.OnConfiguring(optionsBuilder);
     }
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-      base.OnModelCreating(modelBuilder);
+    //protected override void OnModelCreating(ModelBuilder modelBuilder)
+    //{
+    //  base.OnModelCreating(modelBuilder);
 
-      var adminUser = new User {
-        Id = 1,
-        Name = "admin",
-        Email = "admin@domainbatky.test.xyz",
-        Phone = "123456789",
-        Role = nameof(UserRole.Admin)
-      };
-      adminUser.PasswordHash = _passwordHasher.HashPassword(adminUser, "Admin12345!@#$%");
-    }
+    //  var adminUser = new User {
+    //    Id = 2,
+    //    Name = "admin",
+    //    Email = "admin@domainbatky.test.xyz",
+    //    Phone = "123456789",
+    //    Role = nameof(UserRole.Admin)
+    //  };
+    //  adminUser.PasswordHash = _passwordHasher.HashPassword(adminUser, "Admin12345!@#$%");
+    //}
 
   }
 }

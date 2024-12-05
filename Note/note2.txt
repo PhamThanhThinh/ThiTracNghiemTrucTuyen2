@@ -6,3 +6,12 @@ mapping ánh xạ
 AuthEndpoints
 
 Test api bằng postman hoặc swagger
+
+Task
+review code
+approved
+
+làm tool tự động hóa: cần theo dõi hiệu suất
+
+những bài code thiếu nhi
+
