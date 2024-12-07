@@ -17,8 +17,8 @@ public static class DataSeeder
         var adminUser = new User
         {
           Id = 4,
-          Name = "admin2",
-          Email = "admin2@domainbatky.test.xyz",
+          Name = "admin",
+          Email = "admin@domainbatky.test.xyz",
           Phone = "123456799",
           Role = nameof(UserRole.Admin),
         };

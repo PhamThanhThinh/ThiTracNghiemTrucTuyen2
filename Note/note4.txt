@@ -5,3 +5,34 @@ JWT (JSON Web Token)
 JSON Web Token viết tắt là JWT
 
 Cấu hình JWT Bearer là cơ chế xác thực mặc định
+.cs
+//
+///
+/**/
+.razor
+@**@
+
+html
+<!-- -->
+
+Giao diện
+
+MAUI để code mobile
+
+gõ row để viết comment nhanh
+<!-- #region name -->
+<!-- #endregion -->
+
+column - kích thước màn hình - độ rộng
+
+vh viewport height
+
+.cs
+
+lỗi 403 (khi trang web load quá lâu mà không phản hồi)
+
+admin@domainbatky.test.xyz
+Admin12345!@#$%
+
+test chức năng
+commit code github.com/PhamThanhThinh
