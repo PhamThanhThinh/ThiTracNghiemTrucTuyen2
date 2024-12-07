@@ -1,0 +1,7 @@
+Kiểm tra project Api đã cài JwtBearer
+Làm chức năng đăng ký đăng nhập đăng xuất
+
+JWT (JSON Web Token)
+JSON Web Token viết tắt là JWT
+
+Cấu hình JWT Bearer là cơ chế xác thực mặc định

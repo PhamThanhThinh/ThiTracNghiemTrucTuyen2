@@ -4,6 +4,10 @@ using Microsoft.AspNetCore.Identity;
 using ThiTracNghiemTrucTuyen.Api.Data.Entities;
 using ThiTracNghiemTrucTuyen.Api.Services;
 using ThiTracNghiemTrucTuyen.Api.Endpoints;
+using Microsoft.AspNetCore.Authentication.JwtBearer;
+using Microsoft.Extensions.Options;
+using Microsoft.IdentityModel.Tokens;
+using Microsoft.Extensions.Configuration;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -21,6 +25,30 @@ builder.Services.AddDbContext<ApplicationDbContext>(options =>
   options.UseSqlServer(chuoiKetNoi);
 }
 );
+
+// Cấu hình JWT Bearer là cơ chế xác thực mặc định
+builder.Services.AddAuthentication(options =>
+{
+  options.DefaultAuthenticateScheme = JwtBearerDefaults.AuthenticationScheme;
+  options.DefaultChallengeScheme = JwtBearerDefaults.AuthenticationScheme;
+}
+).AddJwtBearer(options =>
+{
+  var secretKey = builder.Configuration.GetValue<string>("Jwt:Secret");
+  var symmetricKey = new SymmetricSecurityKey(System.Text.Encoding.UTF8.GetBytes(secretKey));
+  options.TokenValidationParameters = new TokenValidationParameters
+  {
+    //ValidIssuer = "Jwt:Issuer",
+    //ValidAudience = "Jwt:Audience",
+    IssuerSigningKey = symmetricKey,
+    ValidIssuer = builder.Configuration.GetValue<string>("Jwt:Issuer"),
+    ValidAudience = builder.Configuration.GetValue<string>("Jwt:Audience"),
+    ValidateIssuer = true,
+    ValidateAudience = true,
+    ValidateLifetime = true,
+    ValidateIssuerSigningKey = true,
+  };
+});
 
 builder.Services.AddTransient<AuthService>();
 
@@ -40,6 +68,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseAuthentication();
 
 app.MapAuthEndpoints();
 

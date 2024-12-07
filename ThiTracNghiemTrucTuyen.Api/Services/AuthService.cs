@@ -64,7 +64,7 @@ namespace ThiTracNghiemTrucTuyen.Api.Services
             claims: claims,                            // Các thông tin bổ sung (Claims)
             notBefore: DateTime.UtcNow,                // Thời điểm token bắt đầu có hiệu lực
             //expires: DateTime.UtcNow.AddHours(1),      // Thời điểm token hết hạn
-            expires: DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:ExpireMinutes")),
+            expires: DateTime.UtcNow.AddMinutes(_configuration.GetValue<int>("Jwt:ExpireMinutes")), // Thời điểm token hết hạn
             //expires: DateTime.UtcNow.AddMinutes(5),
             signingCredentials: signingCred
           );
