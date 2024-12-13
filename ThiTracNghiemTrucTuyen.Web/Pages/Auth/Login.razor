@@ -1,6 +1,9 @@
 ﻿@page "/auth/login"
 @using ThiTracNghiemTrucTuyen.Shared.DTOs
+@using ThiTracNghiemTrucTuyen.Web.Layout
+@using ThiTracNghiemTrucTuyen.Web.Services
 @layout EmptyLayout
+@inject IAuthApi AuthApi
 
 <h3>Đăng Nhập Hệ Thống Thi Trắc Nghiệm Trực Tuyến</h3>
 <div class="container">
@@ -8,7 +11,7 @@
     <div class="col-sm-4 mx-auto my-auto border shadow-lg">
       <EditForm Model="_loginDtoModel" OnValidSubmit="LoginAsync">
         <DataAnnotationsValidator />
-        
+
         <div class="my-3">
           <h2 class="h3">Đăng Nhập Hệ Thống Thi Trắc Nghiệm Trực Tuyến</h2>
         </div>
@@ -32,8 +35,15 @@
           <ValidationMessage For="() => _loginDtoModel.Password" />
         </div>
 
+        @if(_error != null)
+        {
+          <div class="mb-3 bg-danger text-white">
+            <p>@_error</p>
+          </div>
+        }
+
         <div class="mb-3">
-          @if (!temp)
+          @if (!_temp)
           {
             <button class="btn btn-primary" type="submit">Đăng Nhập</button>
           }
@@ -41,7 +51,7 @@
           {
             <button class="btn btn-danger" disabled type="button">Đang Trong Quá Trình Đăng Nhập ... Xin Qúy Khách Vui Lòng Đợi Một Lát</button>
           }
-          
+
         </div>
 
       </EditForm>
@@ -53,14 +63,39 @@
 
 @code {
   private LoginDto _loginDtoModel = new();
-  private bool temp;
+  private bool _temp;
+  private string? _error;
 
   private async Task LoginAsync()
   {
+    _error = null;
     // phương pháp đặt cờ hiệu
-    temp = true;
-    await Task.Delay(3000);
-    temp = false;
+    _temp = true;
+
+    try
+    {
+      // var xacThucResponse = await;
+      var authResponse = await AuthApi.LoginAsync(_loginDtoModel);
+      if (authResponse.HasError)
+      {
+        // check error
+        _error = authResponse.ErrorMessage;
+        return;
+
+      }
+    }
+    catch (Exception ex)
+    {
+      _error = ex.Message;
+      // Console.WriteLine();
+    }
+    finally
+    {
+      _temp = false;
+    }
+
+    // await Task.Delay(3000);
+    _temp = false;
   }
 
 }

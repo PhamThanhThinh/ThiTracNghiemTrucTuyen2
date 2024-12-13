@@ -1,0 +1,5 @@
+asp.net
+- web form giống winform
+- mvc .net framework: .net framework dừng ở 4.8
+- core mvc: core 6 8
+- blazor: thay thế code javascript 

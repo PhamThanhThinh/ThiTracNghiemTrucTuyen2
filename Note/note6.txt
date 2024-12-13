@@ -1,2 +1,21 @@
 vps
 hosting
+
+blank
+
+json
+frontend
+
+sql (lưu trường dữ liệu)
+backend
+
+nosql (firebase)
+
+nhà sách online dùng blazor trước đó là blazor server
+thi trắc nghiệm: assembly
+
+""
+!=
+
+
+
