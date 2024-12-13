@@ -10,6 +10,8 @@ builder.RootComponents.Add<HeadOutlet>("head::after");
 
 //builder.Services.AddScoped(sp => new HttpClient { BaseAddress = new Uri(builder.HostEnvironment.BaseAddress) });
 
+ConfigureRefit(builder.Services);
+
 await builder.Build().RunAsync();
 
 static void ConfigureRefit(IServiceCollection services)
