@@ -50,6 +50,13 @@ builder.Services.AddAuthentication(options =>
   };
 });
 
+builder.Services.AddCors(options =>
+{
+  options.AddDefaultPolicy(builder =>
+  {
+    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+  });
+});
 builder.Services.AddTransient<AuthService>();
 
 
