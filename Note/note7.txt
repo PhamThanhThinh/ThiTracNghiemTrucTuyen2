@@ -3,3 +3,8 @@ asp.net
 - mvc .net framework: .net framework dừng ở 4.8
 - core mvc: core 6 8
 - blazor: thay thế code javascript 
+
+code lỗi luôn chức năng login rồi
+nhờ cross origin và try catch exception
+code lợn lành thành lợn què rồi
+phần 6 fix

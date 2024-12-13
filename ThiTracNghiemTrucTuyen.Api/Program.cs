@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.Extensions.Options;
 using Microsoft.IdentityModel.Tokens;
 using Microsoft.Extensions.Configuration;
+using Microsoft.AspNetCore.Cors.Infrastructure;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -50,11 +51,16 @@ builder.Services.AddAuthentication(options =>
   };
 });
 
+// code cross-orgin
+// corsPolicyBuilder
 builder.Services.AddCors(options =>
 {
-  options.AddDefaultPolicy(builder =>
+  options.AddDefaultPolicy(policy =>
   {
-    builder.AllowAnyOrigin().AllowAnyHeader().AllowAnyMethod();
+    var allowdOriginsString = builder.Configuration.GetValue<string>("AllowedOrigins");
+    var allowdOriginsSplit = allowdOriginsString.Split(',', StringSplitOptions.TrimEntries | StringSplitOptions.RemoveEmptyEntries);
+    policy.WithOrigins(allowdOriginsSplit)
+    .AllowAnyHeader().AllowAnyMethod();
   });
 });
 builder.Services.AddTransient<AuthService>();
@@ -75,6 +81,8 @@ if (app.Environment.IsDevelopment())
 }
 
 app.UseHttpsRedirection();
+
+app.UseCors();
 
 app.UseAuthentication();
 
